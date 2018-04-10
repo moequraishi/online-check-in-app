@@ -1,0 +1,94 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="regResponse">
+	<div class="spinner-inner">
+		<mat-spinner></mat-spinner>
+	</div>
+</div>
+
+<!-- Begin Step 09 -->
+<div class="container" id="step-09">
+	<div class="form-container" >
+		<div class="row" *ngIf="data.getConsInfo">
+			<div class="col-md-6">
+				<h3 class="txt-blue text-uppercase">Congratulations</h3>
+				<p>You have completed Online Check-in!</p>
+				<br>
+			</div>
+			<div class="col-md-6 print-col">
+				<a (click)="print()">
+					<strong>Print This Screen</strong>
+				</a>
+			</div>
+		</div>
+		<div class="row" *ngIf="data.getConsInfo">
+			<div class="col">
+        <h4 class="text-uppercase">Personal Information</h4>
+				<p>
+          <strong>First name:</strong> {{data.getConsInfo.getConsResponse.name.first}}
+				</p>
+				<p>
+					<strong>Last name:</strong> {{data.getConsInfo.getConsResponse.name.last}}
+				</p>
+				<p>
+					<strong>Gender:</strong> {{data.getConsInfo.getConsResponse.gender}}
+				</p>
+        <p>
+          <strong>Address 1:</strong> {{data.getConsInfo.getConsResponse.primary_address.street1}}
+        </p>
+        <p>
+          <strong>Address 2:</strong> <span *ngIf="data.getConsInfo.getConsResponse.primary_address.street2">{{data.getConsInfo.getConsResponse.primary_address.street2}}</span>
+        </p>
+        <p>
+          <strong>City:</strong> {{data.getConsInfo.getConsResponse.primary_address.city}}
+        </p>
+        <p>
+          <strong>State:</strong> {{data.getConsInfo.getConsResponse.primary_address.state}}
+        </p>
+        <p>
+          <strong>Zip Code:</strong> {{data.getConsInfo.getConsResponse.primary_address.zip}}
+        </p>
+        <p>
+          <strong>Email Address:</strong> {{data.getConsInfo.getConsResponse.email.primary_address}}
+        </p>
+			</div>
+		</div>
+
+		<!--<div class="border-btm"></div>-->
+    <br />
+
+		<div class="row" *ngIf="data.getConsInfo">
+			<div class="col">
+        <h4 class="text-uppercase">Event Information</h4>
+        <p>
+          <strong>Participation Type:</strong> {{data.participationType}}
+        </p>
+        <p>
+          <strong>Team name:</strong> <span  *ngIf="data.teamName">{{data.teamName}}</span>
+          <span  *ngIf="!data.teamName">None</span>
+        </p>
+        <p>
+          <strong>Tentmate Status: </strong>{{data.tentStatus}}
+        </p>
+        <p>
+          <strong>Pre-Register?:</strong> <span  *ngIf="surveyResults">{{preReg}}</span>
+        </p>
+        <p>
+          <strong>Emergency Contact:</strong> {{data.emergencyName}}
+        </p>
+        <p>
+          <strong>Emergency Contact Phone:</strong> {{data.emergencyPhone}}
+        </p>
+			</div>
+		</div>
+
+		<a href="https://secure2.convio.net/cfrca/site/SPageServer?pagename=to18_pc&pc2_page=center&fr_id=1641" target="_blank">
+			<button
+			mat-raised-button
+			class="search-btn">
+				Return to Participation Center
+			</button>
+		</a>
+	</div>
+</div>

@@ -1,0 +1,94 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!fundResponse.getFundraisingResponse">
+	<div class="spinner-inner">
+		<mat-spinner></mat-spinner>
+	</div>
+</div>
+
+<!-- Begin Step 07 -->
+<div class="container" id="step-07" *ngIf="fundResponse.getFundraisingResponse">
+	<div class="form-container">
+		<div class="row">
+			<h3 *ngIf="fundsMet">Commit to Your Fundraising!</h3>
+			<h4 *ngIf="!fundsMet">Congratulations, you have enough funds raised for you to complete the Online Check-in process!</h4>
+		</div>
+		<div class="row" *ngIf="regResponse">
+			<div class="col-md-4" *ngIf="data.username || data.consUserName">
+				<p>Username:</p>
+				<h4 class="txt-blue">{{data.consUserName || data.username}}</h4>
+			</div>
+			<div class="col-md-4" *ngIf="amountRaised">
+				<p>Amount raised:</p>
+				<h4 class="txt-blue">{{amountRaised}}</h4>
+			</div>
+			<div class="col-md-4" *ngIf="minimumGoal">
+				<p>Minimum required:</p>
+				<h4 class="txt-blue">{{minimumGoal}}</h4>
+			</div>
+		</div>
+    <div class="row" *ngIf="fundsMet">
+      <p>Take a moment to check the above for your current fundraising progress. If you have yet to reach the minimum fundraising goal, you may choose to make either an <strong>Instant Self-Pledge</strong> or a <strong>Delayed Self-Pledge</strong> to complete it. Please note that all Riders must reach the minimum fundraising goal prior to the start of The Ride-or commit to a Delayed Self-Pledge-to participate in the event.</p>
+    </div>
+
+		<div class="border-btm"></div>
+
+		<div class="row" *ngIf="fundsMet">
+			<h4>Re-Check My Status</h4>
+      <p>Have you made an Instant Self-Pledge or Delayed Self-Pledge in the last few minutes? Click the "Update Status" button below to refresh the page and display your current fundraising progress.</p>
+			<button (click)="reload()" class="btn-bw">Update Status</button>
+		</div>
+
+		<!--BEGIN DSP / ISP -->
+		<div class="border-btm" *ngIf="hideDSP === true || hideISP === true"></div>
+
+		<!-- ISP ROW -->
+		<div class="row" *ngIf="hideISP === true">
+			<h4>Instant Self-Pledge</h4>
+      <p>
+        An Instant Self-Pledge is the option for a Rider to pay the remainder of the minimum fundraising goal balance with a valid credit card. Should you decide to make an Instant Self-Pledge, you may also use this opportunity to pre-register for The 2019 Ride or purchase other items and services.
+      </p>
+			<a href="{{ispURL}}" target="_blank">
+				<button class="btn-bw dsp-isp">Pay My Fundraising Balance</button>
+			</a>
+		</div>
+
+		<!-- DSP ROW -->
+		<div class="row" *ngIf="hideDSP === true">
+			<h4>Delayed Self-Pledge</h4>
+      <p>
+        A Delayed Self-Pledge is the option for a Rider to commit to paying the remainder of the minimum fundraising goal balance at a later date. Should you decide to make a Delayed Self-Pledge, an initial deposit of $2 will automatically be charged to your credit card. You will then be given an additional eight weeks starting from the first day of The Ride, [DATE], to continue fundraising. At the conclusion of those eight weeks, any outstanding minimum fundraising goal balance will be charged to your credit card.
+      </p>
+			<a href="{{dspURL}}" target="_blank">
+				<button class="btn-bw dsp-isp">Commit to My Fundraising</button>
+			</a>
+		</div>
+
+		<div class="border-btm" *ngIf="hideDSP === true || hideISP === true"></div>
+		<!-- END DSP / ISP -->
+
+	</div>
+	<div class="row bottom-nav-row">
+		<div class="form-container">
+			<div class="btn-container">
+				<button
+					mat-raised-button
+					color="accent"
+					class="prev-btn"
+					(click)="previousFlowStep()"
+					*ngIf="checkInCommitted">
+					Back
+				</button>
+				<button
+					mat-raised-button
+					color="primary"
+					class="next-btn"
+					(click)="nextFlowStep()"
+					[disabled]="fundsMet">
+					Next
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,84 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!flowStepResults">
+	<div class="spinner-inner">
+		<mat-spinner></mat-spinner>
+	</div>
+</div>
+
+<!-- Begin Step 04 -->
+<div class="container" id="step-04" *ngIf="data">
+	<div class="row">
+		<div class="form-container">
+			<h3 class="text-center">Health Information</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisl magna, lacinia eget eros vitae, tincidunt consectetur neque. Suspendisse eu justo eleifend, vulputate lectus interdum, vestibulum libero. Donec at enim urna. Quisque nec suscipit dolor. Donec maximus sollicitudin orci non porta.</p>
+		</div>
+	</div>
+	<div class="row">
+		<form class="form-container" [formGroup]="healthForm">
+			<div class="form-group">
+				<mat-form-field class="mat-input">
+					<input
+						id="healthInsName"
+						required
+						matInput
+						placeholder="Health Insurance Company Name:"
+						value="{{healthInsName}}"
+						[(ngModel)]="healthInsName"
+						formControlName="healthName">
+					<!-- <mat-hint align="start">
+						<strong>This is a required field.</strong>
+					</mat-hint> -->
+
+				    <mat-error *ngIf="healthForm.controls.healthName.invalid">
+				      Health Insurance Name is required.
+				    </mat-error>
+				</mat-form-field>
+			</div>
+			<div class="form-group">
+				<mat-form-field class="mat-input">
+					<input
+						id="healthInsNumber"
+						required
+						matInput
+						minlength="5"
+						placeholder="Health Insurance Policy Number:"
+						value="{{healthInsNumber}}"
+						[(ngModel)]="healthInsNumber"
+						formControlName="healthNumber">
+					<!-- <mat-hint align="start">
+						<strong>This is a required field.</strong>
+					</mat-hint> -->
+
+				    <mat-error>
+				    	Health Insurance Number cannot be less than 5 characters.
+				    </mat-error>
+				</mat-form-field>
+			</div>
+		</form>
+	</div>
+
+  <div class="form-container">
+    <div class="border-btm"></div>
+  </div>
+
+	<div class="row bottom-nav-row">
+		<div class="form-container">
+			<div class="btn-container">
+				<button mat-raised-button color="accent" class="prev-btn" (click)="previousFlowStep()">
+					Back
+				</button>
+				<button
+					mat-raised-button
+					color="primary"
+					class="next-btn"
+					(click)="updateSurveyRes()"
+					[disabled]="healthForm.invalid">
+					Next
+				</button>
+				<a (click)="updateSurveyResSave()" class="save-later float-right text-uppercase">Save For Later</a>
+			</div>
+		</div>
+	</div>
+</div>

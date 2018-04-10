@@ -1,0 +1,143 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!data">
+	<div class="spinner-inner">
+		<mat-spinner></mat-spinner>
+	</div>
+</div>
+
+<!-- Begin Step 05 -->
+<div class="container" id="step-05" *ngIf="data">
+	<div class="row">
+		<div class="form-container">
+			<h3>Safety Video (10 minutes)</h3>
+			<p>Before completing Online Check-In, you are required to watch this video that outlines safety precautions and important event information you should be aware of while participating in The Ride. Are you an experienced Rider? We are looking for Riders like you to join our Rider Safety Team! These leaders will help us maintain the rules of the road and ensure that cycling etiquette is upheld throughout the event. Members of the Rider Safety Team still take part in all of the fun of The Ride—but just keep an eye out for other Riders, encourage safe riding, and assist if needed. To sign up for our Rider Safety Team please call the local office at 877.699.2453!</p>
+			<p class="text-center txt-blue">
+				<strong>Must watch full video in order to continue.</strong>
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="video-container" >
+				<video
+					(seeking)="seekingVideo($event)"
+					oncontextmenu="return false;"
+					(ended)="vidEnded()"
+					(click)="playVideo()"
+					#videoPlayer
+					poster="assets/images/vid_poster.png">
+					<source src="data.safetyVidURL" type="video/mp4">
+					Your browser does not support this video.
+				</video>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="vid-btn-container">
+				<button
+					mat-raised-button
+					color="accent"
+					class="prev-btn"
+					(click)="pauseVideo()">
+					Pause
+				</button>
+				<button
+					mat-raised-button
+					color="primary"
+					class="next-btn"
+					(click)="playVideo()">
+					Play
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="row" *ngIf="videoWatched === true">
+		<div class="col-12">
+			<div class="waiver-container">
+				<mat-form-field>
+          <p><strong>Waiver (you must read the entire waiver in order to continue)</strong></p>
+		  			<textarea #waiverTxt (scroll)="waiverScroll()" matInput matTextareaAutosize matAutosizeMinRows="2"
+		            matAutosizeMaxRows="15" disabled>
+Participants in all or any part of The Enbridge Ride to Conquer Cancer benefiting Princess Margaret Cancer Centre, scheduled to take place on June 10 - 11, 2018, including any pre- or post-event activities (the "Event"), including virtual riders, must agree to this Waiver.
+
+I understand that participating in such an event, using public streets and facilities, and the use of and participation in services made available to participants during the Event (including massage, chiropractic, and medical services) is a potentially hazardous activity and can result in serious personal injury or death. I am aware of and expressly assume all risks associated with participating in this Event, including, without limitation, falls, contact with other participants, objects, bicycles and vehicles, the effects of weather, traffic, and the conditions of the streets and routes used by the Event, and I assert that my participation in this Event is voluntary.
+
+In consideration for being permitted to participate in this Event, I, for myself and for anyone entitled to act on my behalf, hereby waive and release, from any and all claims for injuries and damages I may have arising out of the Event or my participation in the Event, The Enbridge Ride to Conquer Cancer, CauseForce, Inc., [CauseForce Canada, Inc.], The Princess Margaret Cancer Foundation and Princess Margaret Cancer Centre, Enbridge Inc., the University Health Network, the City of Toronto, the Province of Ontario, Canada, The Niagara Parks Commission, any beneficiaries, sponsors, officials, participating clubs, communities, organizations, friends of the Event, Riders, Crew Members, consultants, participants, third-party vendors, government or public entities (including, without limitation, the Department of Transportation), and each of their respective affiliates, successors, officers, directors, employees, volunteers, agents, and representatives, including, without limitation, the Event medical sponsor, medical director, and members of the medical team.
+
+I intend by this Waiver and Release, in advance, to waive my rights, to covenant not to sue to release for future claims, and to discharge all of the persons and entities mentioned above, from any and all loss or damage, including, but not limited to claims for damages for death, personal injury or property damage that I may have, or which may hereafter accrue to me, as a result of my participation in all or any portion of this Event, even though that liability may arise from negligence, carelessness, or recklessness (whether simple or gross) on the part of the persons or entities being released, from dangerous or defective property or equipment owned, maintained, or controlled by them or because of their possible liability without fault.
+
+I understand and agree that this Waiver and Release is binding on my heirs, assigns, and legal representatives. I attest that I am physically capable of, and have sufficiently trained for, completing each respective element of this Event. If I am aware of or under treatment for any physical infirmity, disorder, ailment, or illness, my medical care provider has been apprised of, and has approved of, my participation in this Event. I acknowledge that I, and I alone, am solely responsible for my personal health and safety, and the personal property I bring with me. I consent to receive medical treatment which may be advisable in the event of illness or injuries suffered by me during this Event, and I agree to pay for the costs of any such medical treatment.
+
+I understand that all donations processed by The Enbridge Ride to Conquer Cancer donation office are non-refundable and non-transferable, even if I do not participate in the Event. I further understand that my registration fee is non-refundable, non-transferable, does not apply toward my fundraising commitment, and is not tax deductible.
+
+If I am a Rider, I understand that I must raise at least ,500 in order to ride in the Event. If I have not raised at least ,500 before June 11, 2018, I may make my own donation to reach that minimum in order to ride*.
+
+I give permission to The Enbridge Ride to Conquer Cancer, CauseForce, Inc. (CauseForce Canada, Inc.), The Princess Margaret Cancer Foundation, Princess Margaret Cancer Centre, and the University Health Network, and each of their respective affiliates, subsidiaries and agents, for the free use of my name, photograph, voice, or likeness, in any broadcast, telecast, advertising promotion, or other account of this Event or marketing or promotion for future or similar events, and waive any rights of privacy I may have in that regard, and I understand and consent that I will periodically be receiving communications related to my participation in the Event
+
+THIS WAIVER AND RELEASE SHALL BE INTERPRETED AND THE RIGHTS OF THE PARTIES DETERMINED UNDER THE LAWS OF THE PROVINCE OF ONTARIO. THE ONTARIO COURTS SHALL HAVE EXCLUSIVE JURISDICTION FOR ANY DISPUTE ARISING UNDER, OR PERTAINING TO, THIS WAIVER AND RELEASE.
+
+I expressly agree that this Agreement is intended to be as broad and inclusive as is permitted by law and that if any provision of this Agreement shall be found to be unlawful, void, or for any reason unenforceable, then that provision shall be deemed severable from this Agreement and shall not affect the validity and enforceability of any remaining provisions. *Riders who register on or after April 6, 2018 must meet a  minimum fundraising level to participate in the 2018 event.
+
+I have carefully read this Waiver and Release and fully understand its contents. I am aware that this is a release of liability and a binding contract between myself and the persons and entities mentioned above, and I sign it of my own free will. I understand that I am giving up substantial rights, including my right to sue. I acknowledge that I am signing this Waiver and Release freely and voluntarily, and intend by my signature to be a complete and unconditional release of all liability to the greatest extent allowed by law.
+					</textarea>
+				</mat-form-field>
+			</div>
+		</div>
+	</div>
+	<div class="row" *ngIf="scrolledBottom === true">
+		<form class="form-container" [formGroup]="waiverForm">
+			<div class="form-group">
+				<mat-form-field class="mat-input">
+					<input
+						id="fullName"
+						required
+						minlength="5"
+						matInput
+						placeholder="First and Last Name:"
+						value="{{fullName}}"
+						[(ngModel)]="fullName"
+						formControlName="fullName">
+
+					<mat-error>
+				    	Full name cannot be less than 5 characters.
+				    </mat-error>
+				</mat-form-field>
+			</div>
+			<div class="form-group chex">
+				<mat-checkbox required color="primary" [(ngModel)]="ageResponse" (change)="checkRes()" formControlName="ageResponse">
+					<div class="check-box-text">I am at least 18 years of age and have carefully read this document, including the Waiver and Release, fully understand its contents and voluntarily agree. If under the age of 18, I have carefully read this document with my parent or guardian, fully understand its contents and participate with their consent.</div>
+				</mat-checkbox>
+
+				<mat-error *ngIf="waiverForm.hasError('required')">
+			    	Checkbox must be selected in order to continue.
+			    </mat-error>
+			</div>
+		</form>
+	</div>
+
+  <div class="form-container">
+    <div class="border-btm"></div>
+  </div>
+
+	<div class="row bottom-nav-row" *ngIf="surveyResults">
+		<div class="form-container">
+			<div class="btn-container">
+				<button mat-raised-button color="accent" class="prev-btn" (click)="previousFlowStep()">
+					Back
+				</button>
+				<button
+					mat-raised-button
+					color="primary"
+					class="next-btn"
+					(click)="updateSurveyRes()"
+					[disabled]="waiverForm.invalid">
+					Next
+				</button>
+				<a (click)="updateSurveyResSave()" class="save-later float-right text-uppercase">Save For Later</a>
+			</div>
+		</div>
+	</div>
+</div>

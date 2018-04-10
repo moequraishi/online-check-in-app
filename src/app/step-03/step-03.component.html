@@ -1,0 +1,273 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!surveyResults.getSurveyResponsesResponse">
+	<div class="spinner-inner">
+		<mat-spinner></mat-spinner>
+	</div>
+</div>
+
+<!-- Begin Step 03 -->
+<div class="container" id="step-03">
+	<div class="row">
+		<div class="col-12">
+			<h3 class="text-center">Important Information</h3>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisl magna, lacinia eget eros vitae, tincidunt consectetur neque. Suspendisse eu justo eleifend, vulputate lectus interdum, vestibulum libero. Donec at enim urna. Quisque nec suscipit dolor. Donec maximus sollicitudin orci non porta.</p>
+		</div>
+	</div>
+	<div class="row" *ngIf="surveyResults.getSurveyResponsesResponse">
+
+		<form class="form-container" [formGroup]="step03Form" *ngIf="step03Form">
+
+			<div class="form-group">
+				<mat-form-field class="mat-input">
+						<input
+						(keyup.enter)="updateReg()"
+						required
+						matInput
+						placeholder="Emergency Contact Name:"
+						value="{{dataService.emergencyName}}"
+						formControlName="emergencyName"
+						[(ngModel)]="dataService.emergencyName">
+<!-- 						<mat-hint align="start">
+							<strong>This is a required field.</strong>
+						</mat-hint> -->
+
+					    <mat-error *ngIf="step03Form.controls.emergencyName.invalid">
+					      Name is required.
+					    </mat-error>
+				</mat-form-field>
+			</div>
+
+			<div class="form-group">
+				<mat-form-field class="mat-input">
+						<input
+						(keyup.enter)="updateReg()"
+						matInput
+						required
+						type="tel"
+						minlength="5"
+						placeholder="Emergency Contact Phone #:"
+						value="{{dataService.emergencyPhone}}"
+						formControlName="emergencyPhone"
+						[(ngModel)]="dataService.emergencyPhone">
+					<!-- 	<mat-hint align="start">
+							<strong>This is a required field.</strong>
+						</mat-hint> -->
+
+						<mat-error *ngIf="step03Form.controls.emergencyPhone.invalid">
+					      Phone number cannot be less than 5 numbers.
+					    </mat-error>
+				</mat-form-field>
+			</div>
+
+			<div class="border-btm"></div>
+
+			<div class="survey-res" *ngFor="let res of surveyResults.getSurveyResponsesResponse.responses">
+
+				<!-- Cancer Survivor -->
+				<div class="form-group" *ngIf="res.questionId === dataService.question14">
+					<p><strong>{{res.questionText}}</strong> (Please Note: The Ride uses a yellow flag and stickers to identify cancer survivors. If you are a cancer survivor or are battling cancer at this time and would like to be recognized, please make a selection.) (optional)</p>
+					<mat-radio-group class="route-radio-group" formControlName="cancerSurvivor" [(ngModel)]="cancerRes">
+						<mat-radio-button
+							class="route-radio-button"
+							color="primary"
+							*ngFor="let yesNo of matSelect"
+							[value]="yesNo.value">
+							{{yesNo.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+
+				<!-- Veg Meals -->
+				<div class="form-group" *ngIf="res.questionId === dataService.question15">
+					<p><strong>{{res.questionText}}</strong> (Please note: gluten free options will be available at every meal/snack area.) (optional)</p>
+					<mat-radio-group class="route-radio-group" formControlName="vegMeals" [(ngModel)]="vegRes">
+						<mat-radio-button
+							class="route-radio-button"
+							color="primary"
+							*ngFor="let yesNo of matSelect"
+							[value]="yesNo.value">
+							{{yesNo.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+
+				<!-- Jersey sizes -->
+				<div class="form-group" *ngIf="res.questionId === dataService.question18">
+					<p><strong>{{res.questionText}}</strong> (optional) - <strong><a class="txt-blue sizing-link" target="_blank" href="assets/images/SU18_CUSTOM_RTCC_Size_Chart.pdf">view sizing guide</a> </strong></p>
+					<mat-form-field>
+						<mat-select formControlName="jerseySizes" class="mat-select" placeholder="Jersey Size" [(ngModel)]="jerseyRes">
+						  	<p class="change-txt">
+								<small>Please make a selection:</small>
+							</p>
+						    <mat-option *ngFor="let jersey of jerseySelect" [value]="jersey.value">
+						      {{ jersey.viewValue }}
+						    </mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+
+				<!-- Shuttle -->
+				<div class="form-group" *ngIf="res.questionId === dataService.question19">
+					<p><strong>{{res.questionText}}</strong> (optional)</p>
+					<mat-radio-group class="route-radio-group" formControlName="shuttle1" [(ngModel)]="shuttleRes">
+						<mat-radio-button
+							class="route-radio-button"
+							color="primary"
+							*ngFor="let yesNo of matSelect"
+							[value]="yesNo.value">
+							{{yesNo.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+
+				<!-- Shuttle 2-->
+				<div class="form-group" *ngIf="res.questionId === dataService.question20">
+					<p><strong>{{res.questionText}}</strong> (optional)</p>
+					<mat-radio-group class="route-radio-group" formControlName="shuttle2" [(ngModel)]="shuttleRes2">
+						<mat-radio-button
+							class="route-radio-button"
+							color="primary"
+							*ngFor="let yesNo of matSelect"
+							[value]="yesNo.value">
+							{{yesNo.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+
+				<!-- Shuttle 3-->
+				<div class="form-group" *ngIf="res.questionId === dataService.question21">
+					<p><strong>{{res.questionText}}</strong> (optional)</p>
+					<mat-radio-group class="route-radio-group" formControlName="shuttle3" [(ngModel)]="shuttleRes3">
+						<mat-radio-button
+							class="route-radio-button"
+							color="primary"
+							*ngFor="let yesNo of matSelect"
+							[value]="yesNo.value">
+							{{yesNo.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+
+				<!-- Shuttle 4-->
+				<div class="form-group" *ngIf="res.questionId === dataService.question22">
+					<p><strong>{{res.questionText}}</strong> (optional)</p>
+					<mat-radio-group class="route-radio-group" formControlName="shuttle4" [(ngModel)]="shuttleRes4">
+						<mat-radio-button
+							class="route-radio-button"
+							color="primary"
+							*ngFor="let yesNo of matSelect"
+							[value]="yesNo.value">
+							{{yesNo.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+
+				<!-- Shuttle 5-->
+				<div class="form-group" *ngIf="res.questionId === dataService.question23">
+					<p><strong>{{res.questionText}}</strong> (optional)</p>
+					<mat-radio-group class="route-radio-group" formControlName="shuttle5" [(ngModel)]="shuttleRes5">
+						<mat-radio-button
+							class="route-radio-button"
+							color="primary"
+							*ngFor="let yesNo of matSelect"
+							[value]="yesNo.value">
+							{{yesNo.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+
+				<!-- Years attended -->
+				<div class="form-group" *ngIf="res.questionId === dataService.question1">
+					<p *ngIf="dataService.participationType !== 'Crew'"><strong>{{res.questionText}}</strong></p>
+          <p *ngIf="dataService.participationType === 'Crew'"><strong>How many years have you Crewed with the Ride?</strong></p>
+					<mat-form-field>
+						<mat-select class="mat-select" placeholder="Years Attended" [(ngModel)]="attendenceRes" formControlName="yearsAttended">
+						  	<p class="change-txt">
+								<small>Please make a selection:</small>
+							</p>
+						    <mat-option *ngFor="let year of years" [value]="year.value">
+						      {{ year.viewValue }}
+						    </mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+
+			</div>
+
+			<div class="border-btm"></div>
+
+			<!-- Route Selection -->
+			<div class="survey-res" *ngFor="let res of surveyResults.getSurveyResponsesResponse.responses">
+
+				<div class="form-group" *ngIf="res.questionId === dataService.question25">
+					<p>
+						<strong>Please select a route*:</strong>
+					</p>
+					<mat-radio-group class="route-radio-group" formControlName="routeSelect" [(ngModel)]="routeRes">
+						<mat-radio-button
+							required
+							class="route-radio-button"
+							color="primary"
+							*ngFor="let route of routes"
+							[value]="route.value">
+							{{route.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+			</div>
+
+			<div class="border-btm"></div>
+
+			<!-- Safety Rider -->
+			<div class="survey-res" *ngFor="let res of surveyResults.getSurveyResponsesResponse.responses">
+
+				<div class="form-group" *ngIf="res.questionId === dataService.question26">
+					<p>
+						<strong>Are you an experienced Rider?</strong>
+						We are looking for Riders like you to join our Rider Safety Team! These leaders will help us maintain rules of the road and ensure that cycling etiquette is upheld throughout the event. Members of the Rider Safety Team still take part in all of the fun of The Ride - but just keep an eye out for other Riders, encourage safe riding, and assist if needed. To sign up for our Rider Safety Team, please answer the question below or call the local office at (888) 771-BIKE (2453)!
+					</p>
+					<p>
+						<strong>I would like to be designated as a safety rider: </strong>(optional)
+					</p>
+
+					<mat-radio-group class="route-radio-group" formControlName="experienced" [(ngModel)]="experiencedRiderRes">
+						<mat-radio-button
+							class="route-radio-button"
+							color="primary"
+							*ngFor="let yesNo of matSelect"
+							[value]="yesNo.value">
+							{{yesNo.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+
+			</div>
+
+		</form>
+	</div>
+
+  <div class="form-container">
+    <div class="border-btm"></div>
+  </div>
+
+	<div class="row bottom-nav-row" *ngIf="surveyResults.getSurveyResponsesResponse">
+		<div class="col-12">
+			<div class="btn-container">
+				<button mat-raised-button color="accent" class="prev-btn" (click)="previousFlowStep()">
+					Back
+				</button>
+				<button
+					mat-raised-button
+					color="primary"
+					class="next-btn"
+					[disabled]="step03Form.invalid || this.routeRes === '[object Object]'"
+					(click)="updateSurveyRes()">
+					Next
+				</button>
+				<a (click)="saveSurveyRes()" class="save-later float-right text-uppercase">Save For Later</a>
+			</div>
+		</div>
+	</div>
+</div>

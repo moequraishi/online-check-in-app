@@ -1,0 +1,230 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!regResponse">
+	<div class="spinner-inner">
+		<mat-spinner></mat-spinner>
+	</div>
+</div>
+
+<!-- Begin Step 08 -->
+<div class="container" id="step-08" *ngIf="regResponse">
+	<div class="form-container">
+		<div class="row" *ngIf="tentmateStatus === false">
+			<h4>Tent Mate Selection</h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisl magna, lacinia eget eros vitae, tincidunt consectetur neque. Suspendisse eu justo eleifend, vulputate lectus interdum, vestibulum libero. Donec at enim urna. Quisque nec suscipit dolor. Donec maximus sollicitudin orci non porta.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisl magna, lacinia eget eros vitae, tincidunt consectetur neque. Suspendisse eu justo eleifend, vulputate lectus interdum, vestibulum libero. Donec at enim urna. Quisque nec suscipit dolor. Donec maximus sollicitudin orci non porta.</p>
+			
+			<div class="btn-cont" *ngIf="!statusSelected">
+				<button 
+					mat-raised-button 
+					class="search-btn" 
+					(click)="declineTent()">
+					I don't need a tent
+				</button>
+			</div>
+
+			<div class="btn-cont" *ngIf="!statusSelected">
+				<button 
+					mat-raised-button 
+					class="search-btn" 
+					(click)="randomTentingStatus()">
+					Select a tent mate for me
+				</button>
+			</div>
+
+			<div class="btn-cont">
+				<button 
+					mat-raised-button 
+					class="search-btn" 
+					(click)="tentSearch = true">
+					Search for a tent mate
+				</button>
+			</div>	
+
+		</div>
+
+		<div class="border-btm"  *ngIf="tentSearch && tentmateStatus === false"></div>
+
+		<div class="row search-row" *ngIf="tentSearch && tentmateStatus === false">
+			<h4>Search for a Tent Mate</h4>
+
+			<!-- Search by Email -->
+			<div class="form-group col-12">
+				<mat-form-field class="mat-input">
+					<input 
+						matInput 
+						type="email" 
+						[formControl]="emailFormControl" 
+						placeholder="Search by e-mail:" 
+						value="{{searchEmail}}" 
+						[(ngModel)]="searchEmail" 
+						(keyup.enter)="getTentingSearch()">
+					<button mat-button *ngIf="searchEmail" matSuffix mat-icon-button aria-label="Clear" (click)="searchEmail=''">
+					    <mat-icon>close</mat-icon>
+					</button>
+					<mat-error *ngIf="emailFormControl.hasError('email') && searchEmail != ''">
+				    	Please enter a valid email address. (ex: name@emailaddress.com)
+				    </mat-error>
+				</mat-form-field>
+			</div>
+
+			<!-- Search by First name -->
+			<div class="form-group col-12">
+				<mat-form-field class="mat-input">
+					<input 
+						matInput  
+						placeholder="Search by first name:" 
+						value="{{searchFirstName}}" 
+						[(ngModel)]="searchFirstName" 
+						(keyup.enter)="getTentingSearch()">
+					<button mat-button *ngIf="searchFirstName" matSuffix mat-icon-button aria-label="Clear" (click)="searchFirstName=''">
+					    <mat-icon>close</mat-icon>
+					</button>
+					<!-- <mat-error *ngIf="searchFirstName">
+				    	Last name is <strong>required</strong>
+				    </mat-error> -->
+				</mat-form-field>
+			</div>
+
+			<!-- Search by Last Name -->
+			<div class="form-group col-12">
+				<mat-form-field class="mat-input">
+					<input 
+						matInput 
+						placeholder="Search by last name:" 
+						value="{{searchLastName}}" 
+						[(ngModel)]="searchLastName" 
+						(keyup.enter)="getTentingSearch()">
+					<button mat-button *ngIf="searchLastName" matSuffix mat-icon-button aria-label="Clear" (click)="searchLastName=''">
+					    <mat-icon>close</mat-icon>
+					</button>
+					<!-- <mat-error *ngIf="searchLastName">
+				    	Last name is <strong>required</strong>
+				    </mat-error> -->
+				</mat-form-field>
+			</div>
+
+			<!-- Send Tentmate Optional Message -->
+			<div class="form-group col-12">
+				<mat-form-field class="mat-input">
+					<input matInput #message maxlength="125" placeholder="Message (optional)">
+<!-- 					<mat-hint align="start"><strong>Optional</strong> </mat-hint> -->
+					<mat-hint align="end">{{message.value.length}} / 125</mat-hint>
+				</mat-form-field>
+			</div>
+
+			<button 
+				mat-raised-button 
+				class="search-btn" 
+				(click)="getTentingSearch()">
+				Search for Tent Mate
+			</button>
+		</div>
+
+		<div class="container" *ngIf="tentingResults.getTentingSearchResponse && tentmateStatus === false">
+			<div class="row results-head" >
+				<div class="col-8">
+					<p class="text-uppercase">
+						<strong>Name</strong>
+					</p>
+				</div>
+<!-- 				<div class="col-md-4">
+					<p>
+						<strong>Fundraising Status</strong>
+					</p>
+				</div> -->
+				<div class="col-4">
+					<p class="text-uppercase">
+						<strong>Request</strong>
+					</p>
+				</div>
+			</div>
+
+			<div class="results-cont" *ngIf="tentingResults.getTentingSearchResponse.totalNumberResults != '1'">
+
+				<div class="row" *ngFor="let res of tentingResults.getTentingSearchResponse.record">
+					<div class="col-8">
+						<a href="{{res.personalPageUrl}}" target="_blank">{{res.name.first}} {{res.name.last}}</a>
+					</div>
+<!-- 					<div class="col-md-4">
+						<p>{{res.tentmateStatus}}</p>
+					</div> -->
+					<div class="col-4">
+						<a class="inv-tent" (click)="invite(res.consId)">Invite</a>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="results-cont" *ngIf="tentingResults.getTentingSearchResponse.totalNumberResults === '1'">
+
+				<div class="row" *ngIf="tentingResults.getTentingSearchResponse.record">
+					<div class="col">
+						<a href="{{tentingResults.getTentingSearchResponse.record.personalPageUrl}}" target="_blank">
+							{{tentingResults.getTentingSearchResponse.record.name.first}} {{tentingResults.getTentingSearchResponse.record.name.last}}
+						</a>
+					</div>
+<!-- 					<div class="col-md-4">
+						<p>{{res.tentmateStatus}}</p>
+					</div> -->
+					<div class="col">
+						<a class="inv-tent" (click)="invite(tentingResults.getTentingSearchResponse.record.consId)">Invite</a>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="results-cont" *ngIf="tentingResults.getTentingSearchResponse.totalNumberResults === '0'">
+
+				<div class="row">
+					<div class="col">
+						<p>
+							<strong>Sorry, there were no results found. Please check the text entered and try again.</strong>
+						</p>
+					</div>
+<!-- 					<div class="col-md-4">
+						<p>{{res.tentmateStatus}}</p>
+					</div> -->
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="container" id="step-08" *ngIf="regResponse">
+			<div class="form-container">
+				<div class="row" *ngIf="tentmateStatus === true">
+					<div class="col">
+						<h4>Congratulations!</h4>
+						<p>
+							You have selected a tenting option and may proceed to the next section.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row bottom-nav-row">
+			<div class="form-container">
+				<div class="btn-container">
+					<button 
+						mat-raised-button 
+						color="accent" 
+						class="prev-btn" 
+						[disabled]="!tentmateStatus"
+						(click)="previousFlowStep()">
+						Back
+					</button>
+					<button 
+						mat-raised-button 
+						color="primary" 
+						class="next-btn"
+						(click)="nextFlowStep()" 
+						[disabled]="nextToggle && !tentmateStatus">
+						Next
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

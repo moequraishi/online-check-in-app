@@ -1,0 +1,15 @@
+<nav>
+	<div class="logo">
+		<a href="http://ride.conquercancer.ca/toronto">
+			<img src="{{torontoLogoURL}}" alt="Logo">
+		</a>
+	</div>
+
+	<button mat-raised-button color="warn" *ngIf="isLoggedIn()" class="log-out" (click)="dataService.logOut()">Logout</button>
+</nav>
+
+<div class="oc">
+	<h2>Online Check-In</h2>
+</div>
+
+<br>

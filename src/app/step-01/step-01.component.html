@@ -1,0 +1,54 @@
+<div class="container" id="login-container">
+	<div class="row justify-content-md-center align-self-center" >
+		<div class="col-12 col-md-6">
+			<div class="login-form-container">
+				<h2 class="text-center">Welcome</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nisl magna, lacinia eget eros vitae, tincidunt consectetur neque. Suspendisse eu justo eleifend, vulputate lectus interdum, vestibulum libero. Donec at enim urna. Quisque nec suscipit dolor. Donec maximus sollicitudin orci non porta.</p>
+				
+				<form id="ssoForm" [formGroup]="loginForm">
+						<div class="form-group">
+							<mat-form-field class="mat-input">
+								<input 
+									required 
+									matInput 
+									placeholder="Enter your username..." 
+									[(ngModel)]="dataService.username" 
+									[errorStateMatcher]="matcher" 
+									formControlName="username">
+									<!-- <button mat-button *ngIf="dataService.username" matSuffix mat-icon-button aria-label="Clear" (click)="dataService.username=''">
+									    <mat-icon>close</mat-icon>
+									</button> -->
+
+									<mat-error *ngIf="loginForm.invalid">
+								      Username is required.
+								    </mat-error>
+							</mat-form-field>
+						</div>
+						<div class="form-group">
+							<mat-form-field class="mat-input">
+								<input 
+								required 
+								matInput 
+								[type]="hide ? 'password' : 'text'"   
+								placeholder="Enter your password..." 
+								[(ngModel)]="dataService.password" 
+								[errorStateMatcher]="matcher" 
+								formControlName="password">
+								<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+
+								<mat-error *ngIf="loginForm.invalid">
+							      Password is required.
+							    </mat-error>
+							</mat-form-field>
+						</div>
+					<button mat-raised-button color="primary" [disabled]="loginForm.invalid"(click)="dataService.logMeIn()">
+						Login
+					</button>
+					<a class="fgpass" href="https://secure2.convio.net/cfrca/site/UserLogin?CMD=ForgotPassword">
+						Forgot Password?
+					</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

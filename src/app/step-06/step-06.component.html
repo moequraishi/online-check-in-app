@@ -1,0 +1,65 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!surveyResults">
+	<div class="spinner-inner">
+		<mat-spinner></mat-spinner>
+	</div>
+</div>
+
+<!-- Begin Step 06 -->
+<div class="container" id="step-06">
+	<div class="row">
+		<div class="form-container" *ngIf="surveyResults">
+			<h3>Register Now for 2018!</h3>
+			<p>Renew your commitment to our historic journey and join us for The Ride on June 9-10, 2018 at the discounted rate of just ! Not only will you have secured your place in history for next year, but you’ll be able to pick up your commemorative 2017 long sleeve t-shirt on Saturday morning!</p>
+			<p>Go the extra distance and become a Conqueror by making a donation of  with your 2018 registration. Conquerors receive a limited edition 2018 Conqueror wristband recognizing your EPIC contribution.</p>
+			<p>If you choose to Pre-Register now and have met your fundraising minimum, the payment link will appear after choosing 'YES' and clicking the 'NEXT' button.</p>
+		</div>
+	</div>
+	<div class="row" >
+		<form class="form-container" [formGroup]="upsellForm" *ngIf="surveyResults.getSurveyResponsesResponse">
+			<div class="survey-res">
+				
+				<div class="form-group">
+					<p>
+						<strong>Renew your commitment to conquering cancer today.</strong>
+					</p>
+					<mat-radio-group class="route-radio-group" formControlName="upsellSelect" [(ngModel)]="upsellResults">
+						<mat-radio-button 
+							required 
+							class="route-radio-button"
+							color="primary" 
+							*ngFor="let upsell of upsells" 
+							[value]="upsell.value">
+								{{upsell.viewValue}}
+						</mat-radio-button>
+					</mat-radio-group>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="row">
+		<div class="form-container">
+			<img class="img-fluid" src="assets/images/upsell_pre_register.jpg" alt="Upsell Pre-Reg">
+		</div>
+	</div>
+	<div class="row bottom-nav-row" *ngIf="surveyResults">
+		<div class="form-container">
+			<div class="btn-container">
+				<button mat-raised-button color="accent" class="prev-btn" (click)="previousFlowStep()">
+					Back
+				</button>
+				<button 
+					mat-raised-button 
+					color="primary" 
+					class="next-btn" 
+					(click)="updateSurveyRes()" 
+					[disabled]="upsellForm.invalid">
+					Next
+				</button>
+				<a (click)="saveSurveyResponses()" class="save-later float-right text-uppercase">Save For Later</a>
+			</div>
+		</div>
+	</div>
+</div>

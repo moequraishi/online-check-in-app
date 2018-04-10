@@ -1,0 +1,90 @@
+//@import '../../styles.scss';
+
+video {
+	width: 100%;
+	height: auto;
+	max-width: 800px;
+	display: block;
+	margin: 0 auto;
+}
+.mat-form-field{
+  width: 100%;
+  max-width: 800px;
+  display: block;
+  margin: 0 auto;
+}
+.row {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	@media screen and (max-width: 400px) {
+		margin-top: 0px;
+		h3 {
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+	}
+}
+
+.vid-btn-container {
+	width: 100%;
+	max-width: 800px;
+	display: block;
+	margin: 0 auto;
+}
+
+.chex {
+	max-width: 700px;
+}
+
+.check-box-text {
+    white-space: normal;
+    padding: 0 20px;
+    @media screen and (max-width: 400px) {
+    	left: auto;
+    }
+}
+
+.mat-checkbox-inner-container {
+	margin: 0;
+	top: 8px;
+}
+
+p.text-center.txt-blue {
+    margin-top: 40px;
+    font-size: 20px;
+}
+
+mat-form-field.mat-input.mat-input-container.mat-form-field.ng-tns-c5-1.mat-form-field-type-mat-input.mat-form-field-can-float.mat-form-field-should-float.mat-primary.ng-untouched.ng-pristine.ng-valid,
+mat-form-field.mat-input.mat-input-container.mat-form-field.ng-tns-c5-1.mat-form-field-type-mat-input.mat-form-field-can-float.mat-form-field-should-float.mat-primary.ng-pristine.ng-valid.ng-touched{
+	max-width: 400px;
+	margin: 0;
+}
+
+.form-container {
+	margin-top: 0px;
+	h3 {
+		margin: 15px 0 20px;
+    text-align: center;
+	}
+}
+
+.prev-btn {
+  margin-right: 30px;
+}
+
+// Waiver
+.waiver-container {
+	margin-top: 15px;
+	::ng-deep label.mat-input-placeholder.mat-form-field-placeholder {
+	    color: #000;
+	    font-family: FuturaBold, Helveticca, sans-serif;
+	    font-size: 20px;
+	}
+	.mat-input-element:disabled {
+	    color: #909090;
+	    @media screen and (max-width: 768px) {
+	    	color: #000;
+	    }
+	}
+}
+
